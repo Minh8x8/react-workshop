@@ -2,12 +2,17 @@ import { Navigate } from "react-router";
 
 import { useAuth } from "../hooks/use-auth";
 
-import { ADMIN_URL, AUTH_URL } from "../constant/url";
+import { ADMIN_URL, AUTH_URL, USER_URL } from "../constant/url";
 
 export default function AuthRedirect() {
-  const { isLoggedIn } = useAuth();
+  const { isLoggedIn, role } = useAuth();
 
-  if (isLoggedIn) return <Navigate to={ADMIN_URL.DASHBOARD} replace />;
+  if (isLoggedIn) {
+    const target =
+      role === "user" ? USER_URL.DASHBOARD : ADMIN_URL.DASHBOARD;
+
+    return <Navigate to={target} replace />;
+  }
 
   return <Navigate to={AUTH_URL.LOGIN} replace />;
 }

@@ -7,7 +7,7 @@ import Input from "../../components/input";
 
 import { useLoginMutation } from "../../hooks/use-login-mutation";
 
-import { ADMIN_URL } from "../../constant/url";
+import { ADMIN_URL, USER_URL } from "../../constant/url";
 import { ACCESS_TOKEN } from "../../constant/auth";
 import { getProfile } from "../../apis/auth";
 import { useAuthStore } from "../../store/auth-store";
@@ -44,7 +44,10 @@ const Login = () => {
       const profile = await getProfile();
       setUser(profile);
 
-      return navigate(ADMIN_URL.DASHBOARD);
+      const target =
+        profile?.role === "user" ? USER_URL.DASHBOARD : ADMIN_URL.DASHBOARD;
+
+      return navigate(target);
     } catch (err) {
       console.error("Login failed:", err);
     }

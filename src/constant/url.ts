@@ -11,3 +11,10 @@ export const ADMIN_URL = {
   BASE: ADMIN_BASE,
   DASHBOARD: `${ADMIN_BASE}/dashboard`,
 };
+
+const USER_BASE = "/user";
+
+export const USER_URL = {
+  BASE: USER_BASE,
+  DASHBOARD: `${USER_BASE}/dashboard`,
+};
