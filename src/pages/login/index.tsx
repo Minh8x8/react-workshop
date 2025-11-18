@@ -8,7 +8,9 @@ import Input from "../../components/input";
 import { useLoginMutation } from "../../hooks/use-login-mutation";
 
 import { ADMIN_URL } from "../../constant/url";
-import { TOKEN } from "../../constant/auth";
+import { ACCESS_TOKEN } from "../../constant/auth";
+import { getProfile } from "../../apis/auth";
+import { useAuthStore } from "../../store/auth-store";
 
 type LoginForm = {
   username: string;
@@ -18,6 +20,7 @@ type LoginForm = {
 
 const Login = () => {
   const navigate = useNavigate();
+  const setUser = useAuthStore((s) => s.setUser);
 
   const {
     handleSubmit,
@@ -36,7 +39,11 @@ const Login = () => {
       });
 
       const { accessToken } = response.data;
-      localStorage.setItem(TOKEN, accessToken);
+      localStorage.setItem(ACCESS_TOKEN, accessToken);
+
+      const profile = await getProfile();
+      setUser(profile);
+
       return navigate(ADMIN_URL.DASHBOARD);
     } catch (err) {
       console.error("Login failed:", err);

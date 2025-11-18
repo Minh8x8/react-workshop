@@ -9,10 +9,10 @@ import AdminLayout from "../layouts/admin";
 import { ADMIN_URL, AUTH_URL } from "../constant/url";
 
 import AuthRedirect from "./auth-redirect";
-import { TOKEN } from "../constant/auth";
+import { ACCESS_TOKEN } from "../constant/auth";
 
 const requireAuth = () => {
-  const token = localStorage.getItem(TOKEN);
+  const token = localStorage.getItem(ACCESS_TOKEN);
 
   if (!token) {
     throw redirect(AUTH_URL.LOGIN);
