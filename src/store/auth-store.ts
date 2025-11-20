@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
+import { ACCESS_TOKEN } from "@constant/auth";
 
 interface AuthState {
   user: {
@@ -27,7 +28,10 @@ export const useAuthStore = create<AuthState>()(
           },
         }),
 
-      clearUser: () => set({ user: null }),
+      clearUser: () => {
+        set({ user: null });
+        localStorage.removeItem(ACCESS_TOKEN);
+      },
     }),
     { name: "user-info" }
   )

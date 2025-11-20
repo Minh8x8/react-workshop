@@ -1,16 +1,16 @@
 import { createBrowserRouter, redirect } from "react-router";
 
-import Login from "../pages/login";
-import Dashboard from "../pages/dashboard";
+import Login from "@pages/login";
+import Dashboard from "@pages/dashboard";
 
-import AuthLayout from "../layouts/auth";
-import AdminLayout from "../layouts/admin";
-import UserLayout from "../layouts/user";
+import AuthLayout from "@layouts/auth";
+import AdminLayout from "@layouts/admin";
+import UserLayout from "@layouts/user";
 
-import { ADMIN_URL, AUTH_URL, USER_URL } from "../constant/url";
+import { ADMIN_URL, AUTH_URL, USER_URL } from "@constant/url";
 
 import AuthRedirect from "./auth-redirect";
-import { ACCESS_TOKEN } from "../constant/auth";
+import { ACCESS_TOKEN } from "@constant/auth";
 
 type Role = "user" | "officer" | undefined;
 
