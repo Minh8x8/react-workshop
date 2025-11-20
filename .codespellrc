@@ -1,0 +1,2 @@
+[codespell]
+skip = templates,node_modules,public,dist,package-lock.json

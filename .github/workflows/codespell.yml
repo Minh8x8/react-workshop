@@ -21,4 +21,4 @@ jobs:
       - name: Codespell
         uses: codespell-project/actions-codespell@v2
         with:
-          skip: templates,node_modules,public,dist
+          config: .codespellrc
