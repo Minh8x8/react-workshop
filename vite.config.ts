@@ -31,6 +31,7 @@ export default defineConfig({
       "@store": "/src/store",
       "@apis": "/src/apis",
       "@context": "/src/context",
+      "@features": "/src/features",
     },
   },
 });

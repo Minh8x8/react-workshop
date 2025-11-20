@@ -1,3 +1,4 @@
+import { USER_URL } from "@constant/url";
 import {
   ChartBarIcon,
   ClipboardDocumentCheckIcon,
@@ -14,8 +15,8 @@ interface SidebarProps {
 
 const Sidebar = ({ role, isVisible = true }: SidebarProps) => {
   const baseNavigation = [
-    { href: "/profile", label: "My Profile", icon: UserIcon },
-    { href: "/kyc", label: "My Submissions", icon: RectangleStackIcon },
+    { href: USER_URL.PROFILE, label: "My Profile", icon: UserIcon },
+    { href: USER_URL.KYC, label: "My Submissions", icon: RectangleStackIcon },
   ];
 
   const officerNavigation =

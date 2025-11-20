@@ -31,6 +31,7 @@ export const useAuthStore = create<AuthState>()(
       clearUser: () => {
         set({ user: null });
         localStorage.removeItem(ACCESS_TOKEN);
+        localStorage.removeItem("theme-mode");
       },
     }),
     { name: "user-info" }
