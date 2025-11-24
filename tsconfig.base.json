@@ -9,6 +9,7 @@
       "@hooks/*": ["hooks/*"],
       "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"],
+      "@lib/*": ["lib/*"],
       "@store/*": ["store/*"],
       "@types/*": ["types/*"]
     }

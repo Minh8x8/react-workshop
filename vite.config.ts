@@ -27,6 +27,7 @@ export default defineConfig({
       "@types": "/src/types",
       "@layouts": "/src/layouts",
       "@pages": "/src/pages",
+      "@lib": "/src/lib",
       "@constant": "/src/constant",
       "@store": "/src/store",
       "@apis": "/src/apis",
