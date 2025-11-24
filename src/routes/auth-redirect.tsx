@@ -8,8 +8,7 @@ export default function AuthRedirect() {
   const { isLoggedIn, role } = useAuth();
 
   if (isLoggedIn) {
-    const target =
-      role === "user" ? USER_URL.DASHBOARD : ADMIN_URL.DASHBOARD;
+    const target = role === "user" ? USER_URL.PROFILE : ADMIN_URL.DASHBOARD;
 
     return <Navigate to={target} replace />;
   }

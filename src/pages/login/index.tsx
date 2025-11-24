@@ -45,7 +45,7 @@ const Login = () => {
       setUser(profile);
 
       const target =
-        profile?.role === "user" ? USER_URL.DASHBOARD : ADMIN_URL.DASHBOARD;
+        profile?.role === "user" ? USER_URL.PROFILE : ADMIN_URL.DASHBOARD;
 
       return navigate(target);
     } catch (err) {
