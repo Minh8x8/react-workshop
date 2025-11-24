@@ -2,13 +2,21 @@ import { Button, Avatar } from "@components/ui";
 import { AvatarFallback, AvatarImage } from "@components/ui/avatar";
 import { ArrowUpTrayIcon } from "@heroicons/react/24/solid";
 
-const ProfilePictureUploader = () => {
-  return (
+const ProfilePictureUploader = (props: {
+  avatar?: string;
+  isLoading?: boolean;
+}) => {
+  const { avatar, isLoading } = props;
+
+  return isLoading ? (
+    <div className="h-28 rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse mt-4"></div>
+  ) : (
     <div className="flex flex-row gap-4 bg-white dark:bg-gray-800 p-4 rounded-sm border shadow mt-4 items-center">
-      <Avatar className="rounded-lg h-22 w-22 border">
-        <AvatarImage src="https://dummyjson.com/icon/averyp/128" />
+      <Avatar key={avatar} className="rounded-lg h-22 w-22 border">
+        <AvatarImage src={avatar || ""} />
         <AvatarFallback>User</AvatarFallback>
       </Avatar>
+
       <div className="flex flex-col">
         <label className="font-medium text-gray-700 dark:text-gray-300">
           Profile picture

@@ -1,8 +1,80 @@
 import { Input, Button } from "@components/ui";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
+import {
+  generalInfoSchema,
+  type GeneralInfoForm,
+} from "../schema/general-information.schema";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 
-const GeneralInformation = () => {
-  return (
-    <div className="bg-white dark:bg-gray-800 p-4 rounded-sm border shadow mt-4">
+type GeneralInformationProps = {
+  initialValues?: GeneralInfoForm;
+  isLoading?: boolean;
+  isSaving?: boolean;
+  onSubmit?: (data: GeneralInfoForm) => Promise<void>;
+};
+
+const emptyValues: GeneralInfoForm = {
+  firstName: "",
+  lastName: "",
+  country: "",
+  city: "",
+  address: "",
+  email: "",
+  phoneNumber: "",
+  birthday: "",
+  organization: "",
+  role: "",
+  department: "",
+  zipPostalCode: "",
+};
+
+const GeneralInformation = ({
+  initialValues,
+  isLoading = false,
+  isSaving = false,
+  onSubmit,
+}: GeneralInformationProps) => {
+  const [isEdit, setIsEdit] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<GeneralInfoForm>({
+    defaultValues: initialValues ?? emptyValues,
+    resolver: zodResolver(generalInfoSchema),
+  });
+
+  useEffect(() => {
+    if (isEdit) return;
+    reset(initialValues ?? emptyValues);
+  }, [initialValues, isEdit, reset]);
+
+  const submitForm = async (values: GeneralInfoForm) => {
+    if (!onSubmit) return;
+
+    try {
+      await onSubmit(values);
+      toast.success("Profile updated successfully!");
+      setIsEdit(false);
+    } catch (error) {
+      console.error("Unable to update profile", error);
+      toast.error("Unable to update profile right now");
+    }
+  };
+
+  const fieldsDisabled = !isEdit || isSaving || isLoading;
+
+  return isLoading ? (
+    <div className="h-80 rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse mt-4"></div>
+  ) : (
+    <form
+      className="bg-white dark:bg-gray-800 p-4 rounded-sm border shadow mt-4"
+      onSubmit={handleSubmit(submitForm)}
+    >
       <h2 className="font-semibold text-md text-black dark:text-white">
         General information
       </h2>
@@ -14,7 +86,17 @@ const GeneralInformation = () => {
           >
             First Name
           </label>
-          <Input id="firstName" placeholder="First Name" disabled />
+          <Input
+            id="firstName"
+            placeholder="First Name"
+            {...register("firstName")}
+            disabled={fieldsDisabled}
+          />
+          {errors.firstName && (
+            <p className="text-sm text-red-500 mt-1">
+              {errors.firstName.message}
+            </p>
+          )}
         </div>
 
         <div className="flex flex-col">
@@ -24,7 +106,17 @@ const GeneralInformation = () => {
           >
             Last Name
           </label>
-          <Input id="lastName" placeholder="Last Name" disabled />
+          <Input
+            id="lastName"
+            placeholder="Last Name"
+            {...register("lastName")}
+            disabled={fieldsDisabled}
+          />
+          {errors.lastName && (
+            <p className="text-sm text-red-500 mt-1">
+              {errors.lastName.message}
+            </p>
+          )}
         </div>
 
         <div className="flex flex-col">
@@ -34,7 +126,17 @@ const GeneralInformation = () => {
           >
             Country
           </label>
-          <Input id="country" placeholder="Country" disabled />
+          <Input
+            id="country"
+            placeholder="Country"
+            {...register("country")}
+            disabled={fieldsDisabled}
+          />
+          {errors.country && (
+            <p className="text-sm text-red-500 mt-1">
+              {errors.country.message}
+            </p>
+          )}
         </div>
 
         <div className="flex flex-col">
@@ -44,7 +146,15 @@ const GeneralInformation = () => {
           >
             City
           </label>
-          <Input id="city" placeholder="City" disabled />
+          <Input
+            id="city"
+            placeholder="City"
+            {...register("city")}
+            disabled={fieldsDisabled}
+          />
+          {errors.city && (
+            <p className="text-sm text-red-500 mt-1">{errors.city.message}</p>
+          )}
         </div>
 
         <div className="flex flex-col">
@@ -54,7 +164,12 @@ const GeneralInformation = () => {
           >
             Address
           </label>
-          <Input id="address" placeholder="Address" disabled />
+          <Input
+            id="address"
+            placeholder="Address"
+            {...register("address")}
+            disabled={fieldsDisabled}
+          />
         </div>
 
         <div className="flex flex-col">
@@ -64,7 +179,16 @@ const GeneralInformation = () => {
           >
             Email
           </label>
-          <Input id="email" placeholder="Email" disabled type="email" />
+          <Input
+            id="email"
+            placeholder="Email"
+            {...register("email")}
+            disabled={fieldsDisabled}
+            type="email"
+          />
+          {errors.email && (
+            <p className="text-sm text-red-500 mt-1">{errors.email.message}</p>
+          )}
         </div>
 
         <div className="flex flex-col">
@@ -77,7 +201,8 @@ const GeneralInformation = () => {
           <Input
             id="phoneNumber"
             placeholder="Phone Number"
-            disabled
+            {...register("phoneNumber")}
+            disabled={fieldsDisabled}
             type="tel"
           />
         </div>
@@ -89,7 +214,13 @@ const GeneralInformation = () => {
           >
             Birthday
           </label>
-          <Input id="birthday" placeholder="Birthday" disabled type="date" />
+          <Input
+            id="birthday"
+            placeholder="Birthday"
+            {...register("birthday")}
+            disabled={fieldsDisabled}
+            type="date"
+          />
         </div>
 
         <div className="flex flex-col">
@@ -99,7 +230,12 @@ const GeneralInformation = () => {
           >
             Organization
           </label>
-          <Input id="organization" placeholder="Company Name" disabled />
+          <Input
+            id="organization"
+            placeholder="Company Name"
+            {...register("organization")}
+            disabled={fieldsDisabled}
+          />
         </div>
 
         <div className="flex flex-col">
@@ -109,7 +245,12 @@ const GeneralInformation = () => {
           >
             Role
           </label>
-          <Input id="role" placeholder="Role" disabled />
+          <Input
+            id="role"
+            placeholder="Role"
+            {...register("role")}
+            disabled={fieldsDisabled}
+          />
         </div>
 
         <div className="flex flex-col">
@@ -119,7 +260,12 @@ const GeneralInformation = () => {
           >
             Department
           </label>
-          <Input id="department" placeholder="Department" disabled />
+          <Input
+            id="department"
+            placeholder="Department"
+            {...register("department")}
+            disabled={fieldsDisabled}
+          />
         </div>
 
         <div className="flex flex-col">
@@ -129,15 +275,29 @@ const GeneralInformation = () => {
           >
             Zip/Postal Code
           </label>
-          <Input id="zipPostalCode" placeholder="Zip/Postal Code" disabled />
+          <Input
+            id="zipPostalCode"
+            placeholder="Zip/Postal Code"
+            {...register("zipPostalCode")}
+            disabled={fieldsDisabled}
+          />
         </div>
       </div>
 
       <div className="flex gap-2 mt-4">
-        <Button>Edit</Button>
-        <Button>KYC</Button>
+        <Button
+          type="button"
+          onClick={() => {
+            if (!isEdit) setIsEdit(true);
+            else handleSubmit(submitForm)();
+          }}
+          disabled={isLoading || isSaving}
+        >
+          {isEdit ? (isSaving ? "Saving..." : "Save") : "Edit"}
+        </Button>
+        <Button type="button">KYC</Button>
       </div>
-    </div>
+    </form>
   );
 };
 
