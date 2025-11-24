@@ -8,7 +8,9 @@
       "@context/*": ["context/*"],
       "@hooks/*": ["hooks/*"],
       "@layouts/*": ["layouts/*"],
+      "@layouts": ["layouts/index.ts"],
       "@pages/*": ["pages/*"],
+      "@pages": ["pages/index.ts"],
       "@lib/*": ["lib/*"],
       "@store/*": ["store/*"],
       "@types/*": ["types/*"]

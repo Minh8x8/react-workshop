@@ -1,18 +1,12 @@
 import { createBrowserRouter, redirect } from "react-router";
 
-import Login from "@pages/login";
-import Dashboard from "@pages/dashboard";
-
-import AuthLayout from "@layouts/auth";
-import AdminLayout from "@layouts/admin";
-import UserLayout from "@layouts/user";
+import { AuthLayout, AdminLayout, UserLayout } from "@layouts";
 
 import { ADMIN_URL, AUTH_URL, USER_URL } from "@constant/url";
 
 import AuthRedirect from "./auth-redirect";
 import { ACCESS_TOKEN } from "@constant/auth";
-import Profile from "@pages/profile";
-import KYC from "@pages/kyc";
+import { Profile, KYC, Login, Dashboard, KycSubmission } from "@pages";
 
 type Role = "user" | "officer" | undefined;
 
@@ -88,7 +82,7 @@ const Router = createBrowserRouter([
       { index: true, Component: Dashboard },
       {
         path: ADMIN_URL.DASHBOARD,
-        Component: Dashboard,
+        Component: KycSubmission,
       },
       {
         path: ADMIN_URL.PROFILE,
