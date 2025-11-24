@@ -12,6 +12,7 @@ import { ADMIN_URL, AUTH_URL, USER_URL } from "@constant/url";
 import AuthRedirect from "./auth-redirect";
 import { ACCESS_TOKEN } from "@constant/auth";
 import Profile from "@pages/profile";
+import KYC from "@pages/kyc";
 
 type Role = "user" | "officer" | undefined;
 
@@ -116,6 +117,10 @@ const Router = createBrowserRouter([
       {
         path: USER_URL.PROFILE_WITH_ID(":id"),
         Component: Profile,
+      },
+      {
+        path: USER_URL.KYC,
+        Component: KYC,
       },
     ],
   },

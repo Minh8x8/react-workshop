@@ -7,6 +7,8 @@ import {
 } from "../schema/general-information.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { USER_URL } from "@constant/url";
+import { useNavigate } from "react-router";
 
 type GeneralInformationProps = {
   initialValues?: GeneralInfoForm;
@@ -37,6 +39,7 @@ const GeneralInformation = ({
   onSubmit,
 }: GeneralInformationProps) => {
   const [isEdit, setIsEdit] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -295,7 +298,9 @@ const GeneralInformation = ({
         >
           {isEdit ? (isSaving ? "Saving..." : "Save") : "Edit"}
         </Button>
-        <Button type="button">KYC</Button>
+        <Button type="button" onClick={() => navigate(USER_URL.KYC)}>
+          KYC
+        </Button>
       </div>
     </form>
   );
