@@ -17,6 +17,4 @@ const USER_BASE = "/user";
 export const USER_URL = {
   BASE: USER_BASE,
   DASHBOARD: `${USER_BASE}/dashboard`,
-  PROFILE: `${USER_BASE}/profile`,
-  KYC: `${USER_BASE}/kyc`,
 };

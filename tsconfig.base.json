@@ -10,8 +10,7 @@
       "@layouts/*": ["layouts/*"],
       "@pages/*": ["pages/*"],
       "@store/*": ["store/*"],
-      "@types/*": ["types/*"],
-      "@features/*": ["features/*"]
+      "@types/*": ["types/*"]
     }
   }
 }

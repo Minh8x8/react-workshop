@@ -11,7 +11,6 @@ import { ADMIN_URL, AUTH_URL, USER_URL } from "@constant/url";
 
 import AuthRedirect from "./auth-redirect";
 import { ACCESS_TOKEN } from "@constant/auth";
-import UserProfilePage from "@pages/user/profile";
 
 type Role = "user" | "officer" | undefined;
 
@@ -100,10 +99,6 @@ const Router = createBrowserRouter([
       {
         path: USER_URL.DASHBOARD,
         Component: Dashboard,
-      },
-      {
-        path: USER_URL.PROFILE,
-        Component: UserProfilePage,
       },
     ],
   },
