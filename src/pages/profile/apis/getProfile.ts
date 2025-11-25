@@ -1,3 +1,4 @@
+import HttpInstance from "@http";
 export type ProfileResponse = {
   id: number;
   firstName: string;
@@ -36,11 +37,11 @@ export type ProfileResponse = {
 export const getProfile = async (
   userId: number | string
 ): Promise<ProfileResponse> => {
-  const response = await fetch(`https://dummyjson.com/users/${userId}`);
+  const response = await HttpInstance.get(`/users/${userId}`);
 
-  if (!response.ok) {
+  if (!response || response.status !== 200) {
     throw new Error("Failed to fetch profile information");
   }
 
-  return (await response.json()) as ProfileResponse;
+  return response.data as ProfileResponse;
 };

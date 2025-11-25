@@ -34,7 +34,11 @@ const toGeneralInfoValues = (profile: ProfileResponse): GeneralInfoForm => ({
   zipPostalCode: profile.address?.postalCode ?? "",
 });
 
-const Profile = () => {
+type ProfileProps = {
+  canEditOverride?: boolean;
+};
+
+const Profile = ({ canEditOverride }: ProfileProps) => {
   const { id } = useParams();
   const authUser = useAuthStore((s) => s.user);
 
@@ -47,6 +51,14 @@ const Profile = () => {
     const parsed = Number(id ?? fallbackId);
     return Number.isNaN(parsed) ? fallbackId : parsed;
   }, [authUser?.id, id]);
+
+  const canEdit = useMemo(() => {
+    if (typeof canEditOverride === "boolean") return canEditOverride;
+    if (!authUser) return false;
+    if (authUser.role === "officer") return false;
+
+    return userId === authUser.id;
+  }, [authUser, canEditOverride, userId]);
 
   useEffect(() => {
     let ignore = false;
@@ -137,13 +149,18 @@ const Profile = () => {
         Personal Information
       </h1>
 
-      <ProfilePictureUploader avatar={profile?.image} isLoading={isLoading} />
+      <ProfilePictureUploader
+        avatar={profile?.image}
+        isLoading={isLoading}
+        canEdit={canEdit}
+      />
 
       <GeneralInformation
         initialValues={generalInfoDefaults}
         isLoading={isLoading}
         isSaving={isSaving}
         onSubmit={handleUpdateProfile}
+        canEdit={canEdit}
       />
     </>
   );

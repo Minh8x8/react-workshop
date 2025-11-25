@@ -15,6 +15,7 @@ type GeneralInformationProps = {
   isLoading?: boolean;
   isSaving?: boolean;
   onSubmit?: (data: GeneralInfoForm) => Promise<void>;
+  canEdit?: boolean;
 };
 
 const emptyValues: GeneralInfoForm = {
@@ -37,6 +38,7 @@ const GeneralInformation = ({
   isLoading = false,
   isSaving = false,
   onSubmit,
+  canEdit = true,
 }: GeneralInformationProps) => {
   const [isEdit, setIsEdit] = useState(false);
   const navigate = useNavigate();
@@ -56,8 +58,12 @@ const GeneralInformation = ({
     reset(initialValues ?? emptyValues);
   }, [initialValues, isEdit, reset]);
 
+  useEffect(() => {
+    if (!canEdit) setIsEdit(false);
+  }, [canEdit]);
+
   const submitForm = async (values: GeneralInfoForm) => {
-    if (!onSubmit) return;
+    if (!onSubmit || !canEdit) return;
 
     try {
       await onSubmit(values);
@@ -69,7 +75,7 @@ const GeneralInformation = ({
     }
   };
 
-  const fieldsDisabled = !isEdit || isSaving || isLoading;
+  const fieldsDisabled = !isEdit || isSaving || isLoading || !canEdit;
 
   return isLoading ? (
     <div className="h-80 rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse mt-4"></div>
@@ -287,21 +293,29 @@ const GeneralInformation = ({
         </div>
       </div>
 
-      <div className="flex gap-2 mt-4">
-        <Button
-          type="button"
-          onClick={() => {
-            if (!isEdit) setIsEdit(true);
-            else handleSubmit(submitForm)();
-          }}
-          disabled={isLoading || isSaving}
-        >
-          {isEdit ? (isSaving ? "Saving..." : "Save") : "Edit"}
-        </Button>
-        <Button type="button" onClick={() => navigate(USER_URL.KYC)}>
-          KYC
-        </Button>
-      </div>
+      {canEdit ? (
+        <div className="flex gap-2 mt-4">
+          <Button
+            type="button"
+            onClick={() => {
+              if (!isEdit) setIsEdit(true);
+              else handleSubmit(submitForm)();
+            }}
+            disabled={isLoading || isSaving}
+          >
+            {isEdit ? (isSaving ? "Saving..." : "Save") : "Edit"}
+          </Button>
+          <Button type="button" onClick={() => navigate(USER_URL.KYC)}>
+            KYC
+          </Button>
+        </div>
+      ) : (
+        <div className="mt-4">
+          <Button type="button" disabled>
+            View Only
+          </Button>
+        </div>
+      )}
     </form>
   );
 };

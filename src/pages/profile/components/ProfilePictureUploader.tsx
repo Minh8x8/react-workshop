@@ -5,8 +5,9 @@ import { ArrowUpTrayIcon } from "@heroicons/react/24/solid";
 const ProfilePictureUploader = (props: {
   avatar?: string;
   isLoading?: boolean;
+  canEdit?: boolean;
 }) => {
-  const { avatar, isLoading } = props;
+  const { avatar, isLoading, canEdit = true } = props;
 
   return isLoading ? (
     <div className="h-28 rounded-lg bg-gray-200 dark:bg-gray-700 animate-pulse mt-4"></div>
@@ -26,11 +27,11 @@ const ProfilePictureUploader = (props: {
           <br />
         </label>
         <div className="flex flex-row gap-2">
-          <Button className="mt-2">
+          <Button className="mt-2" disabled={!canEdit}>
             <ArrowUpTrayIcon />
             Upload new picture
           </Button>
-          <Button variant="outline" className="mt-2 text-red-600">
+          <Button variant="outline" className="mt-2 text-red-600" disabled={!canEdit}>
             Delete
           </Button>
         </div>

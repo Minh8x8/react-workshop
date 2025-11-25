@@ -16,6 +16,7 @@ import {
 } from "@pages";
 
 type Role = "user" | "officer" | undefined;
+const AdminUserDetail = () => <Profile canEditOverride={false} />;
 
 const getStoredUser = () => {
   const persisted = localStorage.getItem("user-info");
@@ -102,6 +103,10 @@ const Router = createBrowserRouter([
       {
         path: ADMIN_URL.USERS,
         Component: UsersList,
+      },
+      {
+        path: ADMIN_URL.USER_DETAIL(":id"),
+        Component: AdminUserDetail,
       },
     ],
   },

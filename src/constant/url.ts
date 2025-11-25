@@ -13,6 +13,7 @@ export const ADMIN_URL = {
   PROFILE: `${ADMIN_BASE}/profile`,
   PROFILE_WITH_ID: (id: string) => `${ADMIN_BASE}/profile/${id}`,
   USERS: `${ADMIN_BASE}/users`,
+  USER_DETAIL: (id: string) => `${ADMIN_BASE}/users/${id}`,
 };
 
 const USER_BASE = "/user";

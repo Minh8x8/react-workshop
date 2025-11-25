@@ -1,8 +1,12 @@
+import { useNavigate } from "react-router";
+
+import { ADMIN_URL } from "@constant/url";
 import { Button } from "@components/ui";
 import { useUsers } from "./hooks/useUsers";
 
 const UserListPage = () => {
   const { data: users, isLoading, isError, error, refetch } = useUsers();
+  const navigate = useNavigate();
 
   if (isLoading)
     return (
@@ -10,6 +14,8 @@ const UserListPage = () => {
     );
 
   if (isError) return <div>Error: {(error as Error).message}</div>;
+
+  const goToUser = (id: string) => navigate(ADMIN_URL.USER_DETAIL(id));
 
   return (
     <div className="p-4">
@@ -34,7 +40,8 @@ const UserListPage = () => {
             {users?.map((u) => (
               <tr
                 key={u.id}
-                className="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="border-t border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer"
+                onClick={() => goToUser(u.id.toString())}
               >
                 <td className="px-4 py-3">
                   <img
@@ -54,7 +61,7 @@ const UserListPage = () => {
                 <td className="px-4 py-3">{u.email}</td>
 
                 <td className="px-4 py-3">
-                  {u.company.name} – {u.company.title}
+                  {u.company.name} - {u.company.title}
                 </td>
               </tr>
             ))}
