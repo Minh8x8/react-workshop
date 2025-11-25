@@ -6,7 +6,14 @@ import { ADMIN_URL, AUTH_URL, USER_URL } from "@constant/url";
 
 import AuthRedirect from "./auth-redirect";
 import { ACCESS_TOKEN } from "@constant/auth";
-import { Profile, KYC, Login, Dashboard, KycSubmission } from "@pages";
+import {
+  Profile,
+  KYC,
+  Login,
+  Dashboard,
+  KycSubmission,
+  UsersList,
+} from "@pages";
 
 type Role = "user" | "officer" | undefined;
 
@@ -91,6 +98,10 @@ const Router = createBrowserRouter([
       {
         path: ADMIN_URL.PROFILE_WITH_ID(":id"),
         Component: Profile,
+      },
+      {
+        path: ADMIN_URL.USERS,
+        Component: UsersList,
       },
     ],
   },

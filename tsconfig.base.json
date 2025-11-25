@@ -13,7 +13,8 @@
       "@pages": ["pages/index.ts"],
       "@lib/*": ["lib/*"],
       "@store/*": ["store/*"],
-      "@types/*": ["types/*"]
+      "@types/*": ["types/*"],
+      "@http": ["http/index.ts"]
     }
   }
 }

@@ -12,9 +12,10 @@ type Submission = {
 };
 
 const statusStyles: Record<SubmissionStatus, string> = {
-  Active: "bg-emerald-100 text-emerald-800",
-  Pending: "bg-amber-100 text-amber-800",
-  Inactive: "bg-red-100 text-red-700",
+  Active:
+    "bg-emerald-100 text-emerald-800 dark:bg-emerald-800 dark:text-emerald-100",
+  Pending: "bg-amber-100 text-amber-800 dark:bg-amber-800 dark:text-amber-100",
+  Inactive: "bg-red-100 text-red-700 dark:bg-red-800 dark:text-red-100",
 };
 
 const initialSubmissions: Submission[] = [
@@ -110,24 +111,26 @@ const DataTable = ({
   onActionClick: (submission: Submission, action: "approve" | "reject") => void;
 }) => {
   return (
-    <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm">
-      <div className="border-b bg-gray-50 px-6 py-4">
-        <h2 className="text-xl font-semibold text-gray-900">KYC Submission</h2>
+    <div className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm dark:bg-gray-700">
+      <div className="border-b bg-gray-50 px-6 py-4 dark:bg-gray-800">
+        <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">
+          KYC Submission
+        </h2>
       </div>
       <div className="overflow-x-auto">
         <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
+          <thead className="bg-gray-50 dark:bg-gray-800">
             <tr>
-              <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600">
+              <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-50">
                 Name
               </th>
-              <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600">
+              <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-50">
                 Status
               </th>
-              <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600">
+              <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-50">
                 Date
               </th>
-              <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600">
+              <th className="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600 dark:text-gray-50">
                 Actions
               </th>
             </tr>
@@ -136,15 +139,17 @@ const DataTable = ({
             {submissions.map((submission, index) => (
               <tr
                 key={submission.id}
-                className={cn(index % 2 === 1 ? "bg-gray-50/50" : "")}
+                className={cn(
+                  index % 2 === 1 ? "bg-gray-50/50 dark:bg-gray-700/50" : ""
+                )}
               >
-                <td className="px-6 py-4 text-sm font-medium text-gray-900">
+                <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">
                   {submission.name}
                 </td>
                 <td className="px-6 py-4">
                   <StatusBadge status={submission.status} />
                 </td>
-                <td className="px-6 py-4 text-sm text-gray-700">
+                <td className="px-6 py-4 text-sm text-gray-700 dark:text-gray-300">
                   {submission.date}
                 </td>
                 <td className="px-6 py-4">
@@ -152,7 +157,7 @@ const DataTable = ({
                     <Button
                       type="button"
                       variant="outline"
-                      className="border-emerald-200 text-emerald-700 hover:bg-emerald-50"
+                      className="border-emerald-200 text-emerald-700 hover:bg-emerald-50 dark:border-emerald-700 dark:text-emerald-300 dark:hover:bg-emerald-800/20"
                       onClick={() => onActionClick(submission, "approve")}
                     >
                       Approve
@@ -160,7 +165,7 @@ const DataTable = ({
                     <Button
                       type="button"
                       variant="outline"
-                      className="border-red-200 text-red-700 hover:bg-red-50"
+                      className="border-red-200 text-red-700 hover:bg-red-50 dark:border-red-700 dark:text-red-300 dark:hover:bg-red-800/20"
                       onClick={() => onActionClick(submission, "reject")}
                     >
                       Reject
@@ -172,24 +177,36 @@ const DataTable = ({
           </tbody>
         </table>
       </div>
-      <div className="flex items-center justify-end gap-2 border-t bg-gray-50 px-6 py-3 text-sm text-gray-600">
+      <div className="flex items-center justify-end gap-2 border-t bg-gray-50 px-6 py-3 text-sm text-gray-600 dark:bg-gray-800 dark:text-gray-300">
         <Button type="button" variant="outline" className="pointer-events-none">
           Previous
         </Button>
         <Button
           type="button"
           variant="secondary"
-          className="bg-cyan-100 text-cyan-900 hover:bg-cyan-200"
+          className="bg-cyan-100 text-cyan-900 hover:bg-cyan-200 dark:bg-cyan-800 dark:text-cyan-100 dark:hover:bg-cyan-700"
         >
           1
         </Button>
-        <Button type="button" variant="outline" className="pointer-events-none">
+        <Button
+          type="button"
+          variant="outline"
+          className="pointer-events-none dark:text-gray-200"
+        >
           2
         </Button>
-        <Button type="button" variant="outline" className="pointer-events-none">
+        <Button
+          type="button"
+          variant="outline"
+          className="pointer-events-none dark:text-gray-200"
+        >
           3
         </Button>
-        <Button type="button" variant="outline" className="pointer-events-none">
+        <Button
+          type="button"
+          variant="outline"
+          className="pointer-events-none dark:text-gray-200"
+        >
           Next
         </Button>
       </div>
