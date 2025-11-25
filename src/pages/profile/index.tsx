@@ -55,7 +55,9 @@ const Profile = ({ canEditOverride }: ProfileProps) => {
   const canEdit = useMemo(() => {
     if (typeof canEditOverride === "boolean") return canEditOverride;
     if (!authUser) return false;
-    if (authUser.role === "officer") return false;
+    if (authUser.role === "officer") {
+      return userId === authUser.id;
+    }
 
     return userId === authUser.id;
   }, [authUser, canEditOverride, userId]);

@@ -11,7 +11,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-import { AUTH_URL } from "../constant/url";
+import { ADMIN_URL, AUTH_URL, USER_URL } from "../constant/url";
 import { useAuthStore } from "../store/auth-store";
 import { useNavigate } from "react-router";
 
@@ -198,7 +198,11 @@ const AppHeader = ({ role, onToggleSidebar }: AppHeaderProps) => {
                   <div className="mt-3 flex flex-col gap-1 text-sm text-gray-600 dark:text-gray-300">
                     <a
                       className="flex items-center gap-2 rounded-xl px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                      href="/profile"
+                      href={
+                        role === "officer"
+                          ? ADMIN_URL.PROFILE
+                          : USER_URL.PROFILE
+                      }
                     >
                       <UserCircleIcon className="h-5 w-5" />
                       View profile
